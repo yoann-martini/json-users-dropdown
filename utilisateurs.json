@@ -1,0 +1,30 @@
+{
+   "utilisateurs":[
+        {
+        "nom":"Clain",
+        "prenom":"Jean",
+        "age":48,
+        "profession":"pompier",
+        "email":"jean@gmaiL.com",
+        "tel":"0262895612"
+        },
+
+        {
+        "nom":"Hoareau",
+        "prenom":"Sabrina",
+        "age":24,
+        "profession":"policière",
+        "email":"sabrina@gmaiL.com",
+        "tel":"0262624969"
+        },
+
+        {
+        "nom":"Rivière",
+        "prenom":"Luc",
+        "age":19,
+        "profession":"chomeur",
+        "email":"luc@gmaiL.com",
+        "tel":"0262147825"
+        } 
+    ]
+}
