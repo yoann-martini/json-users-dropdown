@@ -7,32 +7,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    <div id="fetch" class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div  class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown button
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#" id="ident1"><div id="displaynom"></div></a>
-          <a class="dropdown-item" href="#" id="ident2"><div id="displaynom2"></div></a>
-          <a class="dropdown-item" href="#" id="ident3"><div id="displaynom3"></div></a>
+        <div id="displaynom" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            
+         <!--  <a class="dropdown-item" href="#" id="ident2"><div id="displaynom2"></div></a>
+          <a class="dropdown-item" href="#" id="ident3"><div id="displaynom3"></div></a> -->
         </div>
-      
-            <div class="card" style="width: 18rem;">
-               <!--  <img src="..." class="card-img-top" alt="..."> -->
-                <div class="card-body">
-                  <h5 class="card-title">Identité</h5>
-                  <p class="card-text" id="nom"></p>
-                  <p class="card-text" id="prenom"></p>
-                  <p class="card-text" id="age"></p>
-                  <p class="card-text" id="profession"></p>
-                  <p class="card-text" id="email"></p>
-                  <p class="card-text" id="tel"></p>
-                 
-                </div>
-              </div>
+    </div>
+        
+        <div id="card">
+                
         </div>
-      
-
  
 
 
@@ -43,35 +31,74 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>   
     <script type = "text/javascript" language="javascript"> 
+    function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace( 
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;	
+	}
+	return vars;
+}
+
+var id = $_GET('id');
+
         $(document).ready(function() { 
-               
-            $("#fetch").click(function(event){ 
-                $.getJSON('utilisateurs.json', function(emp) { 
-                    $('#displaynom').html('<p>'+emp.utilisateurs[0].nom  + ' ' + emp.utilisateurs[0].prenom + ' </p>');
-                    $('#displaynom2').html('<p>'+emp.utilisateurs[1].nom  + ' ' + emp.utilisateurs[1].prenom + ' </p>');
-                    $('#displaynom3').html('<p>'+emp.utilisateurs[2].nom  + ' ' + emp.utilisateurs[2].prenom + ' </p>'); 
-                   
-                }); 
-            });
+        /*     $.get('afficher.html', function(id) {  }); */
+        
+                            $.getJSON('utilisateurs.json', function(emp) {    
+                                            $("#dropdownMenuButton").click(function(event){ 
+                                                $('#displaynom').html('');
+                                                    for(let i=0;i<emp.utilisateurs.length;i++){
+                                                    $('#displaynom').append(
+                                                        
+                                                        
+                                                        '<a id="display-card" class="dropdown-item" href="?id='+i+'" >'+  emp.utilisateurs[i].nom  + ' ' + emp.utilisateurs[i].prenom  +'</a>'
+                                                        
+                                                        
+                                                        
+                                                        );
+                                                      
 
 
 
+                                    }
 
-            $("#ident1").click(function(event){ 
-                $.getJSON('utilisateurs.json', function(emp) { 
-                    $('#nom').html('<p>'+emp.utilisateurs[0].nom +'</p>');
-                    $('#prenom').html('<p>'+emp.utilisateurs[0].prenom +'</p>');
-                    $('#age').html('<p>'+emp.utilisateurs[0].age +'</p>');
-                    $('#profession').html('<p>'+emp.utilisateurs[0].profession +'</p>');
-                    $('#email').html('<p>'+emp.utilisateurs[0].email +'</p>');
-                    $('#tel').html('<p>'+emp.utilisateurs[0].tel +'</p>');
-                       
-                   
-                   
-                }); 
-            }); 
+                                    
 
-            $("#ident2").click(function(event){ 
+                                    
+                                    $("#display-card").click(function(event){ 
+            
+ 
+
+                                     
+
+$('#card').append('<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title">Identité</h5><p class="card-text" id="nom">'+emp.utilisateurs[id].nom+'</p><p class="card-text" id="prenom">'+emp.utilisateurs[id].prenom+'</p><p class="card-text" id="age">'+emp.utilisateurs[id].age+'</p><p class="card-text" id="profession">'+emp.utilisateurs[id].profession+'</p><p class="card-text" id="email">'+emp.utilisateurs[id].email+'</p><p class="card-text" id="tel">'+emp.utilisateurs[id].tel+'</p></div></div>');
+
+}); 
+                                }); 
+
+                });
+
+}); 
+
+    /*     $('#prenom').html('<p>'+emp.utilisateurs[0].prenom +'</p>');
+        $('#age').html('<p>'+emp.utilisateurs[0].age +'</p>');
+        $('#profession').html('<p>'+emp.utilisateurs[0].profession +'</p>');
+        $('#email').html('<p>'+emp.utilisateurs[0].email +'</p>');
+        $('#tel').html('<p>'+emp.utilisateurs[0].tel +'</p>'); */
+        
+
+
+
+           
+
+         /*    $("#ident2").click(function(event){ 
                 $.getJSON('utilisateurs.json', function(emp) { 
                     $('#nom').html('<p>'+emp.utilisateurs[1].nom +'</p>');
                     $('#prenom').html('<p>'+emp.utilisateurs[1].prenom +'</p>');
@@ -97,10 +124,10 @@
                    
                    
                 }); 
-            }); 
+            });  */
 
 
-        }); 
+     
       </script>  
 </body>
 </html>
